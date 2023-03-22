@@ -1,0 +1,194 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Gerenciamento de Usuários",
+    "description": "API para cadastro, listagem, edição e remoção de usuários.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/usuarios": {
+      "get": {
+        "description": "Retorna a lista de usuários cadastrados.",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Lista de usuários",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Usuario"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Cadastra um novo usuário.",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "usuario",
+            "in": "body",
+            "description": "Dados do usuário a ser cadastrado.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Usuário cadastrado com sucesso."
+          }
+        }
+      }
+    },
+    "/usuarios/{id}": {
+      "get": {
+        "description": "Retorna um usuário específico.",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do usuário a ser retornado.",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário encontrado.",
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado."
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID do usuário a ser atualizado.",
+          "required": true,
+          "type": "integer"
+        },
+        {
+          "name": "usuario",
+          "in": "body",
+          "description": "Dados do usuário a serem atualizados.",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Usuario"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Usuário atualizado com sucesso."
+        },
+        "404": {
+          "description": "Usuário não encontrado."
+        }
+      }
+    },
+    "delete": {
+      "description": "Remove um usuário específico.",
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID do usuário a ser removido.",
+          "required": true,
+          "type": "integer"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Usuário encontrado.",
+          "schema": {
+            "$ref": "#/definitions/Usuario"
+          }
+        },
+        "404": {
+          "description": "Usuário não encontrado."
+        }
+      }
+    },
+    "put": {
+      "description": "Atualiza um usuário específico.",
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID do usuário a ser atualizado.",
+          "required": true,
+          "type": "integer"
+        },
+        {
+          "name": "usuario",
+          "in": "body",
+          "description": "Dados do usuário a serem atualizados.",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Usuario"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Usuário atualizado com sucesso."
+        },
+        "404": {
+          "description": "Usuário não encontrado."
+        }
+      }
+    },
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "description": "ID do usuário a ser removido.",
+        "required": true,
+        "type": "integer"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Usuário removido com sucesso."
+      },
+      "404": {
+        "description": "Usuário não encontrado."
+      }
+    }
+  },
+
+  "definitions": {
+    "Usuario": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "senha": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
