@@ -41,9 +41,9 @@ app.get('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield prisma.user.findMany();
     res.json(users);
 }));
-app.use('/users', (_req, res, _next) => {
-    res.send('Hello from middleware!');
-});
+// app.use('/users', (_req, res, _next) => {
+//     res.send('Hello from middleware!');
+// });
 app.use(routes_1.default);
 // Swagger documentation setup
 const swaggerOptions = {
