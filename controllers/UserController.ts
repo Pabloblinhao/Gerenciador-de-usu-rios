@@ -5,8 +5,12 @@ const prisma = new PrismaClient();
 
 export default class UserController {
   static async get(req: Request, res: Response) {
-    const users = await prisma.user.findMany();
-    res.json(users);
+    const { id } = req.params;
+    const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
+    if (user) {
+      return res.status(200).json(user);
+    }
+    return res.status(404).json({ mensagem: 'Usuário não encontrado' });
   }
 
   static async post(req: Request, res: Response) {
