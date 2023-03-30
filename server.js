@@ -16,15 +16,12 @@ const express_1 = __importDefault(require("express"));
 const client_1 = require("@prisma/client");
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
-const body_parser_1 = __importDefault(require("body-parser"));
 const routes_1 = __importDefault(require("./routes/routes"));
 const prisma = new client_1.PrismaClient();
 const app = (0, express_1.default)();
 const port = 3000;
 // middlewares
 app.use(express_1.default.json());
-app.use(body_parser_1.default.json());
-app.use(body_parser_1.default.urlencoded({ extended: true }));
 // rotas
 app.post('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password } = req.body;
@@ -41,9 +38,6 @@ app.get('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield prisma.user.findMany();
     res.json(users);
 }));
-// app.use('/users', (_req, res, _next) => {
-//     res.send('Hello from middleware!');
-// });
 app.use(routes_1.default);
 // Swagger documentation setup
 const swaggerOptions = {
